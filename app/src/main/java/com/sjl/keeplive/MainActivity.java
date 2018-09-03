@@ -5,7 +5,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
+
 /**
  * MainActivity
  *
@@ -22,20 +22,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initReceiver();
+        initData();
+    }
+
+    /**
+     * 初始化广播监听
+     */
+    private void initReceiver() {
         //广播监听屏幕亮熄
         receiver = new ScreenReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_SCREEN_ON);
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
         registerReceiver(receiver, intentFilter);
-
-        initData();
-        findViewById(R.id.tvJump).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, OnePixelActivity.class));
-            }
-        });
     }
 
     private void initData() {
