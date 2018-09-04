@@ -38,9 +38,10 @@ public class JobSchedulerService extends JobService {
             @Override
             public void run() {
                 Log.e(TAG, "doJob");
-                if (!isServiceLive()) {
+                /*if (!isServiceLive()) {
                     startService(new Intent(JobSchedulerService.this, DaemonService.class));
-                }
+                }*/
+                startService(new Intent(JobSchedulerService.this, DaemonService.class));
                 jobFinished(jobParameters, false);
             }
         }, 5 * 1000);
@@ -52,9 +53,9 @@ public class JobSchedulerService extends JobService {
         Log.e(TAG, "onStopJob");
         // 当onStartJob返回true时，需调用onStopJob来销毁job
         // 返回false来销毁这个工作
-        if (!isServiceLive()) {
+        /*if (!isServiceLive()) {
             startService(new Intent(JobSchedulerService.this, DaemonService.class));
-        }
+        }*/
         return false;
     }
 
