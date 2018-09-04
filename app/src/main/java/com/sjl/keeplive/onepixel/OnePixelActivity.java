@@ -1,4 +1,4 @@
-package com.sjl.keeplive;
+package com.sjl.keeplive.onepixel;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;

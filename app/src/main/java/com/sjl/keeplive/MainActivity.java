@@ -5,6 +5,14 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+
+import com.sjl.keeplive.jobscheduler.DaemonService;
+import com.sjl.keeplive.jobscheduler.JobSchedulerService;
+import com.sjl.keeplive.jobscheduler.LiveJobSchedulerActivity;
+import com.sjl.keeplive.onepixel.LiveOnePixelActivity;
+import com.sjl.keeplive.onepixel.ScreenReceiver;
 
 /**
  * MainActivity
@@ -12,31 +20,22 @@ import android.util.Log;
  * @author 林zero
  * @date 2018/9/3
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
     private long time;
-
-    private ScreenReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initReceiver();
+        initView();
         initData();
     }
 
-    /**
-     * 初始化广播监听
-     */
-    private void initReceiver() {
-        //广播监听屏幕亮熄
-        receiver = new ScreenReceiver();
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Intent.ACTION_SCREEN_ON);
-        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
-        registerReceiver(receiver, intentFilter);
+    private void initView() {
+        findViewById(R.id.btnOnePixel).setOnClickListener(this);
+        findViewById(R.id.btnJobScheduler).setOnClickListener(this);
     }
 
     private void initData() {
@@ -57,8 +56,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(receiver);
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnOnePixel:
+                startActivity(new Intent(this, LiveOnePixelActivity.class));
+                break;
+            case R.id.btnJobScheduler:
+                startActivity(new Intent(this, LiveJobSchedulerActivity.class));
+                break;
+        }
     }
 }
