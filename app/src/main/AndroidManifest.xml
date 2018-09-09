@@ -34,6 +34,10 @@
         <activity android:name=".onepixel.LiveOnePixelActivity" />
         <activity android:name=".jobscheduler.LiveJobSchedulerActivity" />
 
+        <service
+            android:name=".onepixel.OnePixelService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
